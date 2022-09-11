@@ -1,7 +1,7 @@
 {
-  "name": "express-mesto-gha",
+  "name": "movies-api",
   "version": "1.0.0",
-  "description": "[![Tests](https://github.com/yandex-praktikum/express-mesto-gha/actions/workflows/tests-13-sprint.yml/badge.svg)](https://github.com/yandex-praktikum/express-mesto-gha/actions/workflows/tests-13-sprint.yml) [![Tests](https://github.com/yandex-praktikum/express-mesto-gha/actions/workflows/tests-14-sprint.yml/badge.svg)](https://github.com/yandex-praktikum/express-mesto-gha/actions/workflows/tests-14-sprint.yml)\r # Проект Mesto фронтенд + бэкенд",
+  "description": " # Проект Movies бэкенд",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon app.js",
@@ -10,15 +10,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/3uku3/express-mesto-gha.git"
+    "url": "git+https://github.com/3uku3/movies-explorer-api.git"
   },
   "keywords": [],
   "author": "Mikhail Utin",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/3uku3/express-mesto-gha/issues"
+    "url": "https://github.com/3uku3/movies-explorer-api/issues"
   },
-  "homepage": "https://github.com/3uku3/express-mesto-gha#readme",
+  "homepage": "https://github.com/3uku3/movies-explorer-api#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.0",
