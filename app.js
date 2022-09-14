@@ -24,6 +24,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(requestLogger);
 app.use(cors({
   origin: (origin, callback) => {
+    console.log(origin);
     if (allowedCors.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
