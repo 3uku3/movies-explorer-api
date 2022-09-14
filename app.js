@@ -21,7 +21,7 @@ mongoose.connect(NODE_ENV === 'production' ? PATH_DB : 'mongodb://localhost:2701
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
+app.use(requestLogger);
 app.use(cors({
   origin: (origin, callback) => {
     if (allowedCors.indexOf(origin) !== -1) {
@@ -32,8 +32,6 @@ app.use(cors({
   },
   credentials: true,
 }));
-
-app.use(requestLogger);
 
 app.post('/signup', celebrate({
   body: {
