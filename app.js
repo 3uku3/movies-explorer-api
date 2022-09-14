@@ -24,7 +24,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(requestLogger);
 app.use(cors({
   origin: (origin, callback) => {
-    console.log(origin);
     if (allowedCors.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
@@ -61,5 +60,4 @@ app.use(errorLogger);
 app.use(errors());
 app.use(error);
 app.listen(PORT, () => {
-  console.log(`App listening on port ${PORT}`);
 });
