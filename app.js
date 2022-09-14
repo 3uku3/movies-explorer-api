@@ -15,7 +15,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { NODE_ENV, PATH_DB } = process.env;
 const { PORT = 3000 } = process.env;
 
-const allowedCors = ['http://localhost:3000'];
+const allowedCors = ['http://localhost:3000', 'http://api.3uku3d.nomoredomains.sbs', 'https://api.3uku3d.nomoredomains.sbs'];
 const app = express();
 mongoose.connect(NODE_ENV === 'production' ? PATH_DB : 'mongodb://localhost:27017/bitfilmsdb', {});
 
