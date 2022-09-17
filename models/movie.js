@@ -49,14 +49,14 @@ const movieSchema = new mongoose.Schema(
       ref: 'user',
     },
     movieId: {
+      type: Number,
+      require: true,
+    },
+    nameRU: {
       type: String,
       require: true,
     },
-    nameRu: {
-      type: String,
-      require: true,
-    },
-    nameEn: {
+    nameEN: {
       type: String,
       require: true,
     },

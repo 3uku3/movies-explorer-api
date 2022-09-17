@@ -7,6 +7,7 @@ const {
 const UncorrectDataError = require('../utils/uncorrect-data-error');
 const NotFoundError = require('../utils/not-found-error');
 const ConflictError = require('../utils/conflict-error');
+const UncorrectEmailError = require('../utils/uncorrect-email-error');
 
 module.exports.getMe = (req, res, next) => {
   User.findById(req.user._id).then((user) => {
@@ -70,10 +71,10 @@ module.exports.login = (req, res, next) => {
     .catch(next);
 };
 module.exports.setUser = (req, res, next) => {
-  const { name } = req.body;
+  const { name, email } = req.body;
   User.findByIdAndUpdate(
     req.user._id,
-    { name },
+    { name, email },
     { new: true, runValidators: true },
   )
     .then((user) => {
@@ -89,6 +90,9 @@ module.exports.setUser = (req, res, next) => {
       }
       if (err.name === 'CastError') {
         throw new UncorrectDataError('Передан некорректный id пользователя');
+      }
+      if (err.code === 11000) {
+        throw new UncorrectEmailError('Переданный email уже используется');
       }
       next(err);
     }).catch(next);

@@ -1,15 +1,11 @@
 const jwt = require('jsonwebtoken');
 const DeniedAccessError = require('../utils/denied-access-error');
 
-const extractJwtToken = (header) => header.replace('jwt=', '');
-
 module.exports = (req, res, next) => {
-  const { cookie } = req.headers;
-  if (!cookie || !cookie.startsWith('jwt=')) {
+  const token = req.cookies.jwt;
+  if (!token) {
     next(new DeniedAccessError('Необходима авторизация'));
   }
-
-  const token = extractJwtToken(cookie);
 
   let payload;
   const { NODE_ENV, JWT_SECRET } = process.env;

@@ -4,9 +4,10 @@ const {
   setUser,
   getMe,
 } = require('../controllers/users');
+const auth = require('../middlewares/auth');
 
-router.get('/me', getMe);
-router.patch('/me', celebrate({
+router.get('/users/me', auth, getMe);
+router.patch('/users/me', auth, celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
     email: Joi.string().required().email({ tlds: { allow: false } }),

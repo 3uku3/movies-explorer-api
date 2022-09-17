@@ -5,9 +5,10 @@ const {
   setMovies,
   deleteMovies,
 } = require('../controllers/movies');
+const auth = require('../middlewares/auth');
 
-router.get('/', getMovies);
-router.post('/', celebrate({
+router.get('/movies', auth, getMovies);
+router.post('/movies', auth, celebrate({
   body: {
     country: Joi.string().required(),
     director: Joi.string().required(),
@@ -17,15 +18,14 @@ router.post('/', celebrate({
     image: Joi.string().required().regex(/^http(s)?:\/\/((www.)?([\w-]+\.)+\/?)\S*$/),
     trailerLink: Joi.string().required().regex(/^http(s)?:\/\/((www.)?([\w-]+\.)+\/?)\S*$/),
     thumbnail: Joi.string().required().regex(/^http(s)?:\/\/((www.)?([\w-]+\.)+\/?)\S*$/),
-    movieId: Joi.string().required().alphanum().length(24)
-      .hex(),
-    nameRu: Joi.string().required(),
-    nameEn: Joi.string().required(),
+    movieId: Joi.number().required(),
+    nameRU: Joi.string().required(),
+    nameEN: Joi.string().required(),
   },
 }), setMovies);
-router.delete('/:moviesId', celebrate({
+router.delete('/movies/:moviesId', auth, celebrate({
   params: {
-    moviesId: Joi.string().alphanum().length(24).hex(),
+    moviesId: Joi.number(),
   },
 }), deleteMovies);
 

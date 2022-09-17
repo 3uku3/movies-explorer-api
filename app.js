@@ -3,10 +3,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const { celebrate, Joi } = require('celebrate');
+const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
-const auth = require('./middlewares/auth');
-const { createUser, login, logout } = require('./controllers/users');
 const error = require('./middlewares/errors');
 const NotFoundError = require('./utils/not-found-error');
 const CorsError = require('./utils/cors-error');
@@ -21,6 +19,7 @@ mongoose.connect(NODE_ENV === 'production' ? PATH_DB : 'mongodb://localhost:2701
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(requestLogger);
 app.use(cors({
   origin: (origin, callback) => {
@@ -33,23 +32,10 @@ app.use(cors({
   credentials: true,
 }));
 
-app.post('/signup', celebrate({
-  body: {
-    name: Joi.string().min(2).max(30),
-    email: Joi.string().required().email(),
-    password: Joi.string().required(),
-  },
-}), createUser);
-app.post('/signin', celebrate({
-  body: {
-    email: Joi.string().required().email(),
-    password: Joi.string().required(),
-  },
-}), login);
-app.post('/signout', logout);
+app.use(require('./routes/auth'));
 
-app.use('/users', auth, require('./routes/users'));
-app.use('/movies', auth, require('./routes/movies'));
+app.use(require('./routes/users'));
+app.use(require('./routes/movies'));
 
 app.use('/*', (req, res, next) => {
   next(new NotFoundError('Страница не найдена'));

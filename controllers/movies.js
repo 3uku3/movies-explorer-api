@@ -57,7 +57,7 @@ module.exports.deleteMovies = (req, res, next) => {
         Movie.findOneAndRemove({ movieId: req.params.moviesId })
           .then((movieRemoved) => {
             res.send({ data: movieRemoved });
-          });
+          }).catch(next);
       } else {
         throw new ForbiddenError('Отказано в доступе');
       }
